@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 public class MainPage extends BasePageClass {
 
-
+    //don't forget to make all private static final and capitalize.
     private String url = "https://stage.4frag.ru/";
 
     private String maxPriceValue = "16000";
@@ -35,6 +35,31 @@ public class MainPage extends BasePageClass {
 
     private By warrantyPageLocator = By.xpath("//a[text() = 'Система скидок']");
 
+/*    here is what I was talking about. don't use many locators which are the same, parametrize!
+     ex:
+     private static final String ELEMENT_WITH_TEXT = "//*[text() = '%s']";
+     then
+        public BookmarksPage openBookmarksPage(String bookmark) {
+            maximizeWindow();
+            WebElement bookmarksPageButton = setUpWaiterForWebElement(By.xpath(String.format(ELEMENT_WITH_TEXT, bookmark)));
+            bookmarksPageButton.click();
+            waitPageIsLoadedAndJQueryIsProcessed();
+            return new BookmarksPage();
+        }*/
+/*then in test:
+    @Parameters ({"Закладки"})
+    @Test
+    public void testBookmarksButtonIsClickable(String bookmark){
+        BookmarksPage bookmarksPage = new MainPage()
+                .openHomePage()
+                .openBookmarksPage(bookmark);
+
+    }*/
+
+// 1. parametrization greatly reduce strings of code
+// 2. If the text is variable, it shouldn't be hardcoded on the page itself. be flexible - it should be send from test levels.
+
+
     private By bookmarksPageLocator = By.xpath("//span[text() = 'Закладки']");
 
     private By basketPageLocator = By.xpath("//span[text() = 'Корзина']");
@@ -51,6 +76,8 @@ public class MainPage extends BasePageClass {
 
     private By inputDPIAndCPIResolutionLocator = By.xpath("//input[contains(@id, 'at52-max')]");
 
+    //it's a bad practice to specify element indexes. try to avoid. especially not first-second element, but smth like '55' - really fragile locator
+    //make it harder if possible: use reliable parent, or text etc. same for all indexed cases.
     private By productButtonsAmountDropdownLocator = By.xpath("//select[contains(@name, 'filter[arrtibutes][55][value][]')]");
 
     private By optionFromButtonsAmountDropdownLocator = By.xpath("//select[contains(@name, 'filter[arrtibutes][55][value][]')]//option[contains(text(), '20')]");
@@ -58,7 +85,7 @@ public class MainPage extends BasePageClass {
 
 
    private By subcategoryOptionLocator = By.xpath("//div[contains(@class, 'brands-list')]//div//a[1]");
-
+   //are you really need both classes? use 1 if possible: "//div[contains(@class, 'center-block')]..." or "//div[contains(@class, 'center-block')]....."
    private By addToWishListButtonLocator = By.xpath("//div[contains(@class, 'item-buttons center-block')]//a[2]");
 
    private By wishListPageLocator = By.xpath("//span[contains(text(), 'Закладки')]");
@@ -84,6 +111,8 @@ public class MainPage extends BasePageClass {
 
 
     public CardPage goToTheCardPage() {
+        //I almost sure that don't need to maximize window for all pages. it's for driver itself.
+        // do it once, in abstractPackage.BasePageClass.initializeDriver right after driver is initialized.
         maximizeWindow();
         WebElement closeButton = setUpWaiterForWebElement(cardButtonLocator);
         closeButton.click();

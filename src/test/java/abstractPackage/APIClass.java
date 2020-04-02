@@ -15,7 +15,7 @@ public abstract class APIClass {
         getDriver().get(url);
     }
 
-
+    //method never used
     public WebElement find(By locator) {
         return getDriver().findElement(locator);
     }
@@ -25,6 +25,7 @@ public abstract class APIClass {
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
+            //logger should be used to print the exception
             e.printStackTrace();
         }
     }

@@ -11,8 +11,10 @@ public class LoginPage extends BasePageClass {
 
     private By passwordFieldLocator = By.xpath("//input[@id = 'exampleInputPassword1']");
 
+
     private String emailValue = "nastya.chelyapina@gmail.com";
 
+    //hardcoded password it's no good. use properties, text files, database for it etc. should never be stored in classes of prod real code.
     private String passwordValue = "7845366Nastya";
 
 

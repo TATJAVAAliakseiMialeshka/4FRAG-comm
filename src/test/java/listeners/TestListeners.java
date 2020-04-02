@@ -20,6 +20,7 @@ public class TestListeners implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        // it's a failure. better use .warning()
         LOGGER.info("On Test Failed " + result.getName());
 
     }

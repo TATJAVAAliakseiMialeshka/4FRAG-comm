@@ -1,10 +1,16 @@
 package tests;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.*;
 
 public class VerifyHeaderButtonsAreClickable extends MainPage {
 
+
+    //test should have an assertion. these tests only open something, not verify anything.
+    // these are only intermidiary steps which could be used as part of other tests.
+    // You could vefiry that buttons is visible, not clickable.
+    // For example make 1 parameterized test which will check that all these buttons are visible.
     @Test
     public void testLoginButtonIsClickable(){
         LoginPage loginPage = new MainPage()
